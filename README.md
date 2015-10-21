@@ -44,4 +44,13 @@ if [message] =~ "^ERROR" {
  }
 ```
 
+## running slack-gateway
+
 I run this under supervisord to daemonize it.
+
+```
+[program:slack-gateway]
+user=slack
+directory=/opt/slack-gateway
+command=/opt/slack-gateway/slack-gateway.py
+```
