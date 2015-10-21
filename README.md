@@ -22,13 +22,13 @@ message - message content
 channels - optional channels (additional to default/path defined channel)
 
 ```
-{"topic": "test", "message": "test with channels as a string"}
+{"topic": "test", "message": "this is just a topic test"}
 
-{"topic": "test", "message": "test with channels as a string", "channels": "random"}
+{"host": "foo.bar.com", "message": "this is just a host test"}
 
 {"host": "test", "message": "test with channels as a string", "channels": "random"}
 
-{"topic": "test", "message": "test with channels as a string", "channels": ["random","general"]}
+{"topic": "test", "message": "test with channels as a list", "channels": ["random","general"]}
 ```
 
 # from logstash
