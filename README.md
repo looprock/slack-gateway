@@ -22,6 +22,8 @@ message - message content
 channels - optional channels (additional to default/path defined channel)
 
 ```
+{"topic": "test", "message": "test with channels as a string"}
+
 {"topic": "test", "message": "test with channels as a string", "channels": "random"}
 
 {"host": "test", "message": "test with channels as a string", "channels": "random"}
