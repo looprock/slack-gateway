@@ -7,6 +7,15 @@ import email
 import requests
 import json
 
+# setup
+# put this script somewhere
+# configure the URL parameter below
+# install this script on a local or remote system with a mail server
+# add to /etc/aliases:
+# slack: "|/path/to/email-to-slack.py"
+# run newaliases
+# you're done. Now sending mail to slack@host should send it through the gateway
+
 # slack gateway
 url = "http://[your_host_here]:18080"
 debug = True
