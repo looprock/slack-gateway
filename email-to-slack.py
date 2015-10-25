@@ -65,7 +65,8 @@ Message subject: %s\n
 Message body:\n
 %s\n\n""" % (msgdate, msgfrom, msgsubject, load)
 
-print data
+if debug:
+    print data
 
 payload = {"topic": "email", "message": data}
 degbu("payload:")
