@@ -1,3 +1,4 @@
 bottle==0.12.8
 requests==2.2.1
 tornado==4.2.1
+statsd==3.2.1

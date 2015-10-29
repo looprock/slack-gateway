@@ -1,6 +1,19 @@
 # slack-gateway
 a logstash http output compatible slack api gateway
 
+## why?
+I was trying to get a few things out of this service:
+
+1. submit to multiple channels from a single endpoint
+
+2. accept data from logstash from the default http plugin
+
+3. not have to expose and maintain the slack api endpoint in multiple applications
+
+4. do different things with different types of data
+
+5. handle per-channel posting across multiple teams
+
 ## Installation
 
 pip install -r requirements.txt
