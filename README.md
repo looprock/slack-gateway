@@ -16,7 +16,12 @@ I was trying to get a few things out of this service:
 
 ## Installation
 
-pip install -r requirements.txt
+1. pip install -r requirements.txt
+
+2. configure gateway.conf
+
+3. start from the same directory as gateway.conf or point to gateway.conf via -c
+
 
 ##POSTing to slack-gateway
 
@@ -65,5 +70,5 @@ I run this under supervisord to daemonize it.
 [program:slack-gateway]
 user=slack
 directory=/opt/slack-gateway
-command=/opt/slack-gateway/slack-gateway.py
+command=/opt/slack-gateway/slack-gateway.py -c /opt/slack-gateway/gateway.conf
 ```
