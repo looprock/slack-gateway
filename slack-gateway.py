@@ -32,11 +32,11 @@ def bug(msg):
         print "DEBUG: %s" % msg
 
 
-def countnagios(msg):
+def countnagios(message):
     bug("found topic nagios")
-    bug("msg: %s" % msg)
-    if re.search('\\\*\\\* PROBLEM', msg):
-        tmp = msg.split("** PROBLEM Service Alert: ")[1].split(" is ")[0].replace(".", "-").replace(" ", "-").split("/")
+    bug("message: %s" % message)
+    if re.search('\\\*\\\* PROBLEM', message):
+        tmp = message.split("** PROBLEM Service Alert: ")[1].split(" is ")[0].replace(".", "-").replace(" ", "-").split("/")
         smap = "%s.%s" % (tmp[0], tmp[1])
         bug("incrementing: %s" % smap)
         sdout = statsd.incr(smap)
@@ -44,9 +44,22 @@ def countnagios(msg):
         bug("%s updated" % smap)
 
 
+def counttest(message):
+    # you can use the topic 'test' to trigger a count of alerts.testmessage metric to validate your statsd setup
+    bug("found topic test")
+    bug("message: %s" % message)
+    smap = "testmessage"
+    bug("incrementing: %s" % smap)
+    sdout = statsd.incr(smap)
+    bug("sdout %s" % str(sdout))
+    bug("%s updated" % smap)
+
+
 def getmetrics(topic, message):
     if topic == 'nagios':
         countnagios(message)
+    elif topic == 'test':
+        counttest(message)
 
 
 cmddebug = False
