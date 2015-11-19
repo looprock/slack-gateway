@@ -55,11 +55,23 @@ def counttest(message):
     bug("%s updated" % smap)
 
 
+def countrundeck(message):
+    bug("found topic rundeck")
+    bug("message: %s" % message)
+    smap = "rundeck.%s" % message.split(",")[0].strip()
+    bug("incrementing: %s" % smap)
+    sdout = statsd.incr(smap)
+    bug("sdout %s" % str(sdout))
+    bug("%s updated" % smap)
+
+
 def getmetrics(topic, message):
     if topic == 'nagios':
         countnagios(message)
     elif topic == 'test':
         counttest(message)
+    elif topic == 'rundeck':
+        countrundeck(message)
 
 
 cmddebug = False
