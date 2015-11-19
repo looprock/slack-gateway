@@ -37,7 +37,7 @@ def countnagios(message):
     bug("message: %s" % message)
     if re.search('\\\*\\\* PROBLEM', message):
         tmp = message.split("** PROBLEM Service Alert: ")[1].split(" is ")[0].replace(".", "-").replace(" ", "-").split("/")
-        smap = "%s.%s" % (tmp[0], tmp[1])
+        smap = "alerts.%s.%s" % (tmp[0], tmp[1])
         bug("incrementing: %s" % smap)
         sdout = statsd.incr(smap)
         bug("sdout %s" % str(sdout))
@@ -48,7 +48,7 @@ def counttest(message):
     # you can use the topic 'test' to trigger a count of alerts.testmessage metric to validate your statsd setup
     bug("found topic test")
     bug("message: %s" % message)
-    smap = "testmessage"
+    smap = "alerts.testmessage"
     bug("incrementing: %s" % smap)
     sdout = statsd.incr(smap)
     bug("sdout %s" % str(sdout))
@@ -58,7 +58,12 @@ def counttest(message):
 def countrundeck(message):
     bug("found topic rundeck")
     bug("message: %s" % message)
-    smap = "rundeck.%s" % message.split(",")[0].strip()
+    mtype = message.split(",")[0].strip()
+    if mtype == 'succeeded':
+        pre = 'status'
+    else:
+        pre = 'alerts'
+    smap = "%s.rundeck.%s" % (pre, mtype)
     bug("incrementing: %s" % smap)
     sdout = statsd.incr(smap)
     bug("sdout %s" % str(sdout))
@@ -129,7 +134,10 @@ else:
 
 if bool(conf['statsd']['enabled']):
     from statsd import StatsClient
-    statsd = StatsClient(host=conf['statsd']['server'], port=int(conf['statsd']['port']), prefix=conf['statsd']['prefix'])
+    if bool(conf['statsd']['prefix']):
+        statsd = StatsClient(host=conf['statsd']['server'], port=int(conf['statsd']['port']), prefix=conf['statsd']['prefix'])
+    else:
+        statsd = StatsClient(host=conf['statsd']['server'], port=int(conf['statsd']['port']))
     logging.debug(" %s statsd reporting enabled" % printtime())
 
 
