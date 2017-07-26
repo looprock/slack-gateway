@@ -30,10 +30,11 @@ options:
 2. install this script on a local or remote system with a mail server
 3. add to /etc/aliases RE:
 
+```
 slack: "|/path/to/email-to-slack.py <options>"
 
 ```
-4. run newaliases
-```
+
+4. run: newaliases
 
 5. you're done. Now sending mail to slack@host should send it through the gateway
