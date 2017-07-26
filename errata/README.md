@@ -32,6 +32,8 @@ options:
 
 slack: "|/path/to/email-to-slack.py <options>"
 
+```
 4. run newaliases
+```
 
 5. you're done. Now sending mail to slack@host should send it through the gateway
