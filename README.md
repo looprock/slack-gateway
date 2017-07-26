@@ -37,7 +37,7 @@ docker run -it -p 8080:8080 -e token=x0x0-some-bogus-string some/slack-gateway
 
 docker pull looprock/slack-gateway
 
-##POSTing to slack-gateway
+## POSTing to slack-gateway
 
 ### URL
 
