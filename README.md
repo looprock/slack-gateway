@@ -14,10 +14,12 @@ I was trying to get a few things out of this service:
 ## Installation
 
 ### Environment variables
+
+```
 token - your slack token, default: None
 host - OPTIONAL: the IP to listen on, default: 0.0.0.0
 port - OPTIONAL: the port to listen on, default: 18080
-
+```
 
 ### Manual setup
 pip install -r requirements.txt
