@@ -26,11 +26,16 @@ copy slack-gateway.py to /usr/local/bin (or something)
 
 token=x0x0-some-bogus-string /usr/local/bin/slack-gateway.py
 
-### Docker setup
+I run this under something like supervisord to daemonize it.
+
+### Docker build
 docker build -t some/slack-gateway .
 
 docker run -it -p 8080:8080 -e token=x0x0-some-bogus-string some/slack-gateway
 
+### Docker pull
+
+docker pull looprock/slack-gateway
 
 ##POSTing to slack-gateway
 

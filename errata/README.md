@@ -1,54 +1,3 @@
-# slack-gateway
-a logstash http output compatible slack api gateway
-
-## why?
-I was trying to get a few things out of this service:
-
-1. submit to multiple channels from a single endpoint
-
-2. accept data from logstash from the default http plugin
-
-3. not have to expose and maintain the slack api endpoint in multiple applications
-
-4. do different things with different types of data
-
-5. handle per-channel posting across multiple teams
-
-## Installation
-
-1. pip install -r requirements.txt
-
-2. configure gateway.conf
-
-3. start from the same directory as gateway.conf or point to gateway.conf via -c
-
-
-##POSTing to slack-gateway
-
-### URL
-
-send to your default channel via: http://your.endpoint.com:18080
-
-send to a different channel via http://your.endpoint.com:18080/differentchannel
-
-### JSON object
-
-topic / host - prefix for message
-
-message - message content
-
-channels - optional channels (additional to default/path defined channel)
-
-```
-{"topic": "test", "message": "this is just a topic test"}
-
-{"host": "foo.bar.com", "message": "this is just a host test"}
-
-{"host": "test", "message": "test with channels as a string", "channels": "random"}
-
-{"topic": "test", "message": "test with channels as a list", "channels": ["random","general"]}
-```
-
 # from logstash
 
 something like:
@@ -62,13 +11,27 @@ if [message] =~ "^ERROR" {
  }
 ```
 
-## running slack-gateway
-
-I run this under supervisord to daemonize it.
+# email-to-slack.py
 
 ```
-[program:slack-gateway]
-user=slack
-directory=/opt/slack-gateway
-command=/opt/slack-gateway/slack-gateway.py -c /opt/slack-gateway/gateway.conf
+options:
+
+-h/--help         -  print usage summary
+-d/--debug        -  print debug output
+-s/--subjectonly  -  only send the subject of the email, not the entire body
+-t/--topic=       -  specify the topic (default: email)
+-c/--channel=     -  send to a particular channel via the gateway (default: no channel specified)
+-g/--gateway=     -  specify the gateway ip/hostname (default: 127.0.0.1)
+-p/--gatewayport= -  specify the gateway port (default:18080)
 ```
+
+1. put the script somewhere
+
+2. install this script on a local or remote system with a mail server
+3. add to /etc/aliases RE:
+
+slack: "|/path/to/email-to-slack.py <options>"
+
+4. run newaliases
+
+5. you're done. Now sending mail to slack@host should send it through the gateway
